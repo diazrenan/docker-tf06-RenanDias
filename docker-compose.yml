@@ -1,0 +1,22 @@
+services:
+  web_app:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: compose_web_lab_compose_aula006
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=db_cache
+    depends_on:
+      - db_cache
+
+  db_cache:
+    image: redis:alpine
+    container_name: compose_db_lab_compose_aula006
+    volumes:
+      - redis_data_lab_compose_aula006:/data
+
+volumes:
+  redis_data_lab_compose_aula006:
+    driver: local
